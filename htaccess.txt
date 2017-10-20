@@ -1,0 +1,45 @@
+
+## Can be commented out if causes errors, see notes above.
+Options +FollowSymLinks
+# disable directory browsing, if error 500 encountered then comment out
+Options All -Indexes
+
+## Order Allow,Deny
+## Allow from 180.151.230.157
+## Allow from 116.75.200.35
+
+<FilesMatch "(\.htaccess|\.htpasswd)$">
+Order Allow,Deny
+Deny from all
+</FilesMatch>
+
+# disable access to the config.php   
+<Files ~ "config.php$"> 
+deny from all  
+</Files>
+
+## Mod_rewrite in use.
+
+
+RewriteEngine On 
+
+## RewriteCond %{HTTP_HOST} !^www\.
+## RewriteRule ^(.*)$ http://www.%{HTTP_HOST}/$1 [R=301,L]
+## RewriteCond %{THE_REQUEST} ^[A-Z]{0,9}\ /index\.php\ HTTP/
+## RewriteRule ^index\.php$ http://www.abc.com/ [R=301,L]
+
+## RewriteCond %{REQUEST_URI} \/controllers\/ [OR] 
+## RewriteCond %{REQUEST_URI} \/logs/secureLogs\/ 
+## RewriteCond %{REQUEST_URI} \/logs\/
+## RewriteRule ^(.*)$ index.php [R=404,L]
+
+
+# if a directory or a file exists, use it directly
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-l
+RewriteCond %{REQUEST_URI} !-l
+RewriteCond %{REQUEST_FILENAME} !\.(ico|css|png|jpg|gif|js)$ [NC]
+# otherwise forward it to index.php
+RewriteRule . index.php
+
+RewriteRule ^([^/]*)\.html$ /index.php?view=$1 [L]
