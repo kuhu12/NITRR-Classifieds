@@ -33,7 +33,7 @@ define('IMG_DIR_URL', SITE_URL.'img/');
 define('VIEW_FTYPE', '.php');
 define('VIEWS', BASE_PATH.'views'.DS);
 define('CONTROLLERS', BASE_PATH.'controllers'.DS);
-define('SECRET_KEY', '49hGyn1742x98IUYT94zn727'); 
+define('SECRET_KEY', '**********'); 
 define('EMAIL_TEMPLATE', 'emailBody');
 
 // Email settings
